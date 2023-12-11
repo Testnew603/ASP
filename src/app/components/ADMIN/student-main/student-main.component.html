@@ -1,0 +1,135 @@
+<div class="container-fluid g-0">
+    <!-- HEADER -->
+    <app-child-header> </app-child-header>
+
+    <!-- MAIN CONTENT -->
+    <main>
+        <!-- ADD AND SEARCH STUDENTS -->
+        <div class="toolbar">
+
+            <div class="add-student">
+                <button type="button" class="btn btn-outline-success btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Add Students
+                </button>   
+            </div>
+
+            <div class="search-student">
+                <input type="search" class="form-control" placeholder="Search Students">
+            </div>
+
+        </div>
+
+        <!-- AREA TO DISPLAY ALL THE STUDENTS -->
+        <div class="students">
+            <div class="row mt-5" *ngIf="studentdetails.length == 0">
+                <div class="col text-center">
+                    <span class="text-secondary fs-2 fw-bold fst-italic">
+                        There are No Students Added!
+                    </span>
+                </div>
+            </div>    
+            <!-- AREA TO DISPLAY THE STUDENT CARDS -->
+            <div class="students p-3">
+                <div class="row mt-4" *ngFor="let student of studentToDisplay;let i = index;">
+                    <div class="col">
+                        <app-student-details [student]="student">
+                        </app-student-details>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Add New Student</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          
+            <form [formGroup]="studentForm">
+                <!-- FIRSTNAME AND LASTNAME -->
+                <div class="row">
+                    <div class="col">
+                        <input type="text" class="form-control" placeholder="FirstName" formControlName="firstname">
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control" placeholder="LastName" formControlName="lastname">
+                    </div>
+                </div>
+
+                <!-- PERSONAL INFORMATION -->
+                <div class="row mt-3">
+                    <div class="col form-heading">
+                        <h6 class="text-secondary fst-italic">Personal Information</h6>
+                    </div>
+                </div>
+
+                  <!-- DOB AND GENDER -->
+                  <div class="row mt-2">
+                    <div class="col">
+                        <label for="datepicker">Birthdate</label>
+                        <input type="date" class="form-control" placeholder="Select Your Birth Date" id="datepicker" formControlName="birthdate">
+                    </div>
+    
+                       <div class="col">
+                        <h6 class="text-secondary">Gender</h6>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="gender" id="male" value="male" checked formControlName="gender">
+                            <label class="form-check-label" for="male">Male
+                            </label>
+                          </div>
+                          <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="gender" id="female" value="female" formControlName="gender">
+                            <label class="form-check-label" for="female">Female
+                            </label>
+                          </div>
+                       </div>
+                </div>
+
+                 <!-- EMAIL AND ADDRESS -->
+                 <div class="row mt-3">
+                    <div class="col">
+                        <input type="email" class="form-control" placeholder="Enter your Email" formControlName="email">
+                    </div> 
+                    <div class="col">
+                        <textarea class="form-control" placeholder="Enter your Address" formControlName="address"></textarea>
+                    </div>                 
+                </div>
+
+                <!-- MOBILE AND QUALIFICATION -->
+                <div class="row mt-3">
+                    <div class="col">
+                        <input type="number" class="form-control" placeholder="Enter your Number" formControlName="mobile">
+                    </div>
+                    <div class="col">
+                        <select class="form-select" formControlName="qualification">
+                            <option value="default">Select your Qualification
+                            </option>
+                            <option *ngFor="let option of educationOptions; let i = index" value="{{i}}"> {{option | titlecase}} 
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- DOCUMENTS -->
+                <div class="row mt-3">
+                    <div class="col">
+                        <label for="document">Documents</label>
+                        <input type="file" class="form-control" id="document" #fileInput>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+        <div class="modal-footer">          
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="addStudent()">Insert</button>
+        </div>
+      </div>
+    </div>
+  </div>
