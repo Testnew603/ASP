@@ -52,7 +52,7 @@
         </div>
         <div class="modal-body">
           
-            <form [formGroup]="studentForm">
+            <form [formGroup]="studentForm" (ngSubmit)="addStudent()">
                 <!-- FIRSTNAME AND LASTNAME -->
                 <div class="row">
                     <div class="col">
@@ -121,14 +121,45 @@
                 <div class="row mt-3">
                     <div class="col">
                         <label for="document">Documents</label>
-                        <input type="file" class="form-control" id="document" #fileInput>
+                        <input type="file" class="form-control" id="document" #documentInput>
+                    </div>
+                </div>
+
+                <!-- DOMAIN AND PROFILE -->
+                <div class="row mt-3">
+                    <div class="col">
+                        <label for="domain">Domain</label>
+                        <select class="form-select" formControlName="domain">
+                            <option value="default">Select Domain</option>
+                            <ng-container *ngFor="let domain of domainItem; 
+                            let i = index;" id="domain"> 
+                                <option disabled class="fw-bold">
+                                    {{ domain.mainDomain | titlecase }}</option>
+                                <ng-container *ngFor="let subdomain of domain.subDomains">
+                                    <option [value]="subdomain">{{ subdomain | titlecase }}</option>
+                                </ng-container>
+                            </ng-container>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <label for="profile">ProfileImage</label>
+                        <input type="file" class="form-control" id="profile" #profileInput>
+                    </div>
+                </div>
+                <!-- PASSWORD AND RE_ENTER PASSWORD -->
+                <div class="row mt-3">
+                    <div class="col">
+                        <input type="text" placeholder="enter a password" formControlName="password">
+                    </div>
+                    <div class="col">
+                        <input type="text" placeholder="re-enter password" formControlName="rpassword">
                     </div>
                 </div>
             </form>
 
         </div>
         <div class="modal-footer">          
-          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="addStudent()">Insert</button>
+          <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" (click)="addStudent()">Insert</button>
         </div>
       </div>
     </div>

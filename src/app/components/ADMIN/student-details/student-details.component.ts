@@ -24,8 +24,8 @@ export class StudentDetailsComponent implements OnInit {
         documents: '',  
         domainId: {
           id: 0,
-          domain: '',
-          subdomain: ''
+          mainDomain: '',
+          subDomain: ''
         },
         password: '',
         status: '',
@@ -33,8 +33,5 @@ export class StudentDetailsComponent implements OnInit {
     }
     }
 
-  ngOnInit(): void {
-    console.log(this.student);
-    
-  }
+  ngOnInit(): void {  }
 }

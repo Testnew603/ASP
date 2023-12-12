@@ -1,7 +1,12 @@
-export interface Domain {
+export interface DomainList {
     id: number;
-    domain: string;
-    subdomain: string;
+    mainDomain: string;
+    subDomain: string;
+}
+
+export interface DomainItem {
+    mainDomain: string;
+    subDomains: string[];
 }
 
 export interface StudentDetails {
@@ -15,7 +20,7 @@ export interface StudentDetails {
     mobile: number;
     qualification: string;
     documents: string;
-    domainId: Domain;
+    domainId: DomainList;
     password: string;
     status: string;
     profile: string;
